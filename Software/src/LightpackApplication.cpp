@@ -319,6 +319,24 @@ void LightpackApplication::processCommandLineArguments()
                 sendMessage("on");
             ::exit(0);
         }
+        //NG: add new command line argument --switch
+        else if (arguments().at(i) =="--switch") {
+            if (isRunning())
+                sendMessage("switch");
+            ::exit(0);
+        }
+        //NG: add new command line argument --next
+        else if (arguments().at(i) =="--next") {
+            if (isRunning())
+                sendMessage("next");
+            ::exit(0);
+        }
+        //NG: add new command line argument --prev
+        else if (arguments().at(i) =="--prev") {
+            if (isRunning())
+                sendMessage("prev");
+            ::exit(0);
+        }
         else if (arguments().at(i) =="--debug-high")
         {
             g_debugLevel = Debug::HighLevel;

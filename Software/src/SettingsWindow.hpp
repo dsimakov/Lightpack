@@ -39,6 +39,7 @@
 #include "enums.hpp"
 
 
+
 namespace Ui {
     class SettingsWindow;
 }
@@ -59,6 +60,7 @@ public:
     void createTrayIcon();
     void connectSignalsSlots();
     QWidget* getSettingBox();
+
 
 signals:
     void switchOffLeds();
@@ -197,6 +199,7 @@ private slots:
 
     void on_pbRunConfigurationWizard_clicked();
 
+    void switchLeds();
 private:
     void updateExpertModeWidgetsVisibility();
     void updateDeviceTabWidgetsVisibility();

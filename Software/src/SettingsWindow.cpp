@@ -878,9 +878,26 @@ void SettingsWindow::processMessage(const QString &message)
         setBacklightStatus(Backlight::StatusOn);
     else if ("off" == message)
         setBacklightStatus(Backlight::StatusOff);
-    else if (m_trayIcon != NULL) {
+    else
+    //NG: implementation switch command
+    if ("switch" == message) {
+        if (m_backlightStatus == Backlight::StatusOn)
+            setBacklightStatus(Backlight::StatusOff);
+        else
+            setBacklightStatus(Backlight::StatusOn);
+    } else
+    if ("next" == message) {
+        nextProfile();
+    } else
+    if ("prev" == message) {
+        prevProfile();
+    }
+    else
+        if (m_trayIcon != NULL) {
         m_trayIcon->showMessage(SysTrayIcon::MessageAnotherInstance);
     }
+
+
 }
 
 // ----------------------------------------------------------------------------
@@ -1534,8 +1551,23 @@ void SettingsWindow::createTrayIcon()
     connect(m_trayIcon, SIGNAL(backlightOff()), this, SLOT(backlightOff()));
     connect(m_trayIcon, SIGNAL(profileSwitched(QString)), this, SLOT(profileTraySwitch(QString)));
 
+//    ghSwitch.setShortcut(QKeySequence(tr("Ctrl+I")));
+//    ghSwitch.setEnabled();
+
+//    connect(&ghSwitch, SIGNAL(activated()), this, SLOT(switchLeds()));
+
     m_trayIcon->init();
     connect(this, SIGNAL(backlightStatusChanged(Backlight::Status)), this, SLOT(updateTrayAndActionStates()));
+}
+
+//NG: switchLeds()
+void SettingsWindow::switchLeds()
+{
+    if (m_backlightStatus == Backlight::StatusOff) {
+        emit backlightOn();
+        return;
+    }
+    emit backlightOff();
 }
 
 void SettingsWindow::updateUiFromSettings()
