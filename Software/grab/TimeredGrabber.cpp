@@ -33,7 +33,10 @@ TimeredGrabber::TimeredGrabber(QObject * parent, GrabberContext *context)
     if (m_timer && m_timer->isActive())
         m_timer->stop();
     m_timer.reset(new QTimer(this));
-    connect(m_timer.data(), SIGNAL(timeout()), this, SLOT(grab()));
+
+    //NG: connect signal for GPU_grab()
+    connect(m_timer.data(), SIGNAL(timeout()), this, SLOT(GPU_grab()));
+//    connect(m_timer.data(), SIGNAL(timeout()), this, SLOT(grab()));
 }
 
 void TimeredGrabber::setGrabInterval(int msec) {

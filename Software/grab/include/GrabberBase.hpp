@@ -94,6 +94,13 @@ public slots:
     virtual void setGrabInterval(int msec) = 0;
 
     virtual void grab();
+    virtual void GPU_grab();
+    virtual int GPU_accumulateBufferFormatArgb(const unsigned char *buffer,
+            unsigned int pitch,
+            const int x, const int y, const int height, const int width,
+            unsigned int *red, unsigned int *green, unsigned int *blue);
+    QRgb GPU_calculateAvgColor(QRgb *result, const unsigned char *buffer, unsigned int pitch, const QRect &rect);
+
 
 protected slots:
     /*!
