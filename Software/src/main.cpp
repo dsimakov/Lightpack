@@ -111,7 +111,7 @@ public:
 
         const QString timeMark = QDateTime::currentDateTime().time().toString("hh:mm:ss:zzz");
         QMutexLocker locker(&m_mutex);
-        cerr << timeMark.toStdString() << s_logLevelNames[level] << ':' << msg.toStdString() << endl;
+        cerr << timeMark.toStdString()<< " " << s_logLevelNames[level] << ": " << msg.toStdString() << endl;
         m_logStream << timeMark << s_logLevelNames[level] << ':' << msg << endl;
         m_logStream.flush();
     }

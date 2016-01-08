@@ -33,6 +33,9 @@
 #include "calculations.hpp"
 #include "GrabberContext.hpp"
 
+
+#include <CL/cl.hpp>
+
 enum GrabResult {
     GrabResultOk,
     GrabResultFrameNotReady,
@@ -83,6 +86,7 @@ public:
      \param grabWidgets List of GrabWidgets
     */
     GrabberBase(QObject * parent, GrabberContext * grabberContext);
+    void initGPU();
     virtual ~GrabberBase() {}
 
     virtual const char * name() const = 0;

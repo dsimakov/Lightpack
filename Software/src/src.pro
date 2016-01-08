@@ -135,7 +135,7 @@ unix:!macx{
     # Linux version using libusb and hidapi codes
     SOURCES += hidapi/linux/hid-libusb.c
     # For QSerialDevice
-    LIBS += -ludev -lrt -lXext -lX11
+    LIBS += -ludev -lrt -lXext -lX11 -lOpenCL
 }
 
 macx{

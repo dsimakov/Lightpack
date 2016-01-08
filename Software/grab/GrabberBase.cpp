@@ -44,6 +44,22 @@ inline QRect & getValidRect(QRect & rect) {
 
 GrabberBase::GrabberBase(QObject *parent, GrabberContext *grabberContext) : QObject(parent) {
     _context = grabberContext;
+    initGPU();
+}
+
+void GrabberBase::initGPU()
+{
+    std::vector<cl::Platform> platforms;
+    cl::Platform::get(&platforms);
+
+    for (unsigned int iPlatform=0; iPlatform<platforms.size(); iPlatform++)
+    {
+        std::vector<cl::Device> devices;
+        platforms[iPlatform].getDevices(CL_DEVICE_TYPE_GPU, &devices);
+        for (unsigned int iDevice=0; iDevice<devices.size(); iDevice++) {
+            qDebug() << "Device GPU: " << devices[iDevice].getInfo<CL_DEVICE_NAME>().data();
+        }
+    }
 }
 
 const GrabbedScreen * GrabberBase::screenOfRect(const QRect &rect) const {
@@ -130,7 +146,7 @@ void GrabberBase::GPU_grab()
     if (_lastGrabResult == GrabResultOk) {
         _context->grabResult->clear();
 
-        const int grabWidgetsSize = context->grabWidgets->size();   //count of grabs area
+        const int grabWidgetsSize = _context->grabWidgets->size();   //count of grabs area
         for (int i = 0; i < _context->grabWidgets->size(); ++i) {
             const int currentWidgetIndex = i;
             QRect widgetRect = _context->grabWidgets->at(i)->frameGeometry();
