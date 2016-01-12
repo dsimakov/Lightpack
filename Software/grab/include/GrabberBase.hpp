@@ -35,6 +35,8 @@
 
 
 #include <CL/cl.hpp>
+#include <fstream>
+#include <iostream>
 
 enum GrabResult {
     GrabResultOk,
@@ -87,6 +89,42 @@ public:
     */
     GrabberBase(QObject * parent, GrabberContext * grabberContext);
     void initGPU();
+    cl::Kernel kernel;
+    cl::Device device;
+    std::vector<cl::Platform> platforms;
+    std::vector<cl::Device> contextDevices;
+    cl::Context context;
+    cl::CommandQueue queue;
+    cl::Program program;
+
+
+    cl::Buffer cSource  ;
+    cl::Buffer cWidth   ;
+    cl::Buffer cHeight  ;
+    cl::Buffer cX       ;
+    cl::Buffer cY       ;
+    cl::Buffer cPitch   ;
+
+    cl::Buffer cRed     ;
+    cl::Buffer cGreen   ;
+    cl::Buffer cBlue    ;
+    cl::Buffer cCount   ;
+
+    cl_int GPU_DATA_COUNT;
+    cl_int GPU_BLOCK_SIZE;
+
+    cl_char *pSource;
+    cl_int *pWidth;
+    cl_int *pHeight;
+    cl_int *pX;
+    cl_int *pY;
+    cl_int *pPitch;
+
+    cl_int *pRed;
+    cl_int *pGreen;
+    cl_int *pBlue;
+    cl_int *pCount;
+
     virtual ~GrabberBase() {}
 
     virtual const char * name() const = 0;

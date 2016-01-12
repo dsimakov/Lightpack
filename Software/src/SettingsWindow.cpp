@@ -1764,7 +1764,7 @@ void SettingsWindow::versionsUpdate()
 
     adjustSize();
 
-    setFixedSize( sizeHint() );
+//    setFixedSize( sizeHint() );
 }
 
 void SettingsWindow::showHelpOf(QObject *object)
